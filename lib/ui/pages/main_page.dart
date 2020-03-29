@@ -5,8 +5,10 @@ import 'package:fluttermobiletemplate/bloc/bloc.dart';
 import 'package:fluttermobiletemplate/handlers/form_validators_handler.dart';
 import 'package:fluttermobiletemplate/models/user.dart';
 import 'package:fluttermobiletemplate/ui/widgets/custom_text_form_field.dart';
+import 'package:fluttermobiletemplate/ui/widgets/info_dialog.dart';
 import 'package:fluttermobiletemplate/ui/widgets/loading_dialog.dart';
 import 'package:fluttermobiletemplate/ui/widgets/primary_flat_button.dart';
+import 'package:fluttermobiletemplate/utils/app_localizations.dart';
 import 'package:fluttermobiletemplate/utils/constants.dart';
 
 class MainPage extends StatefulWidget {
@@ -32,19 +34,35 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RegisterBloc, RegisterState>(
-      listener: (context, state) {
-        if (state is RegisterLoading) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) => LoadingDialog(),
-          );
-        } else if (state is RegisterSuccess) {
-          BlocProvider.of<SharedPrefsBloc>(context).add(SetSharedPref(key: USERNAME_KEY, value: _emailController.text));
-          Navigator.of(context).pop();
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<RegisterBloc, RegisterState>(
+          listener: (context, registerState) {
+            if (registerState is RegisterLoading) {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => LoadingDialog(),
+              );
+            } else if (registerState is RegisterSuccess) {
+              BlocProvider.of<SharedPrefsBloc>(context).add(SetSharedPref(key: USERNAME_KEY, value: _emailController.text));
+              Navigator.of(context).pop();
+            } else if (registerState is RegisterError) {
+              Navigator.of(context).pop();
+              showDialog(
+                context: context,
+                builder: (context) => InfoDialog(
+                  title: AppLocalizations.of(context).get(key: "error"),
+                  child: Text(
+                    registerState.error,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: Text("Flutter Mobile Template"),
@@ -59,12 +77,15 @@ class _MainPageState extends State<MainPage> {
                 child: Column(
                   children: <Widget>[
                     BlocBuilder<SharedPrefsBloc, SharedPrefsState>(
-                      builder: (context, state) {
-                        if (state is SharedPrefsLoaded && state.sharedPreferences.get(USERNAME_KEY) != null) {
+                      builder: (context, sharedPrefsState) {
+                        if (sharedPrefsState is SharedPrefsLoaded && sharedPrefsState.sharedPreferences.get(USERNAME_KEY) != null) {
                           return Column(
                             children: <Widget>[
                               Text(
-                                "Hello, ${state.sharedPreferences.get(USERNAME_KEY)}!",
+                                AppLocalizations.of(context).get(
+                                  key: "helloMessage",
+                                  placeholders: {"name": sharedPrefsState.sharedPreferences.get(USERNAME_KEY)},
+                                ),
                                 style: Theme.of(context).textTheme.headline,
                               ),
                               const SizedBox(height: 16),
@@ -79,9 +100,9 @@ class _MainPageState extends State<MainPage> {
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       controller: _emailController,
-                      validator: (value) => FormValidatorsHandler.validateEmail(value),
+                      validator: (value) => FormValidatorsHandler.of(context).validateEmail(value),
                       onFieldSubmitted: (value) => FocusScope.of(context).requestFocus(_passwordFocusNode),
-                      labelText: "Username",
+                      labelText: AppLocalizations.of(context).get(key: "email"),
                       icon: Icons.alternate_email,
                     ),
                     const SizedBox(height: 16),
@@ -89,15 +110,17 @@ class _MainPageState extends State<MainPage> {
                       obscureText: true,
                       focusNode: _passwordFocusNode,
                       controller: _passwordController,
-                      validator: (value) => FormValidatorsHandler.validatePassword(value),
+                      validator: (value) => FormValidatorsHandler.of(context).validatePassword(value),
                       onFieldSubmitted: (value) => _login(),
-                      labelText: "Password",
+                      labelText: AppLocalizations.of(context).get(key: "password"),
                       icon: Icons.lock,
                     ),
                     const SizedBox(height: 16),
                     PrimaryFlatButton(
                       onPressed: () => _login(),
-                      child: Text("Login"),
+                      child: Text(
+                        AppLocalizations.of(context).get(key: "login"),
+                      ),
                     ),
                   ],
                 ),

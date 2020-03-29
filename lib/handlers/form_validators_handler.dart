@@ -1,15 +1,28 @@
+import 'package:flutter/cupertino.dart';
+import 'package:fluttermobiletemplate/utils/app_localizations.dart';
+
 class FormValidatorsHandler {
-  static String validateEmail(String value) {
+  static BuildContext context;
+
+  static FormValidatorsHandler of(BuildContext buildContext) {
+    if (context == null ) {
+      context = buildContext;
+    }
+
+    return FormValidatorsHandler();
+  }
+
+  String validateEmail(String value) {
     if (value.isEmpty) {
-      return "Please enter your Email";
+      return AppLocalizations.of(context).get(key: "formEmail");
     } else {
       return null;
     }
   }
 
-  static String validatePassword(String value) {
+  String validatePassword(String value) {
     if (value.isEmpty || value.length < 6) {
-      return "Please enter a Password of at least 6 characters";
+      return AppLocalizations.of(context).get(key: "formPassword");
     } else {
       return null;
     }
