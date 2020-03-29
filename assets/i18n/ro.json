@@ -1,0 +1,10 @@
+{
+  "email": "Email",
+  "error": "Eroare",
+  "formEmail": "Introduceti adresa de Email",
+  "formPassword": "Introduceti o Parola de minim 6 caractere",
+  "helloMessage": "Salut, {name}!",
+  "loading": "Se incarca",
+  "login": "Login",
+  "password": "Parola"
+}

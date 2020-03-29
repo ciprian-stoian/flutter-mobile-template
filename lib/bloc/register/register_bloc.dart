@@ -24,7 +24,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       if (response.statusCode == 201) {
         yield RegisterSuccess();
       } else {
-        yield RegisterError();
+        yield RegisterError(response.statusCode.toString());
       }
     }
   }

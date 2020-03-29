@@ -1,8 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttermobiletemplate/utils/app_localizations.dart';
 
-class LoadingDialog extends StatelessWidget {
+class InfoDialog extends StatelessWidget {
+  final String title;
+  final Widget child;
+
+  InfoDialog({
+    @required this.title,
+    @required this.child,
+  });
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -11,15 +18,10 @@ class LoadingDialog extends StatelessWidget {
       ),
       elevation: 0,
       title: Text(
-        AppLocalizations.of(context).get(key: "loading"),
+        title,
         textAlign: TextAlign.center,
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          CircularProgressIndicator(),
-        ],
-      ),
+      content: child,
     );
   }
 }

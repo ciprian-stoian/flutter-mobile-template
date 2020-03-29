@@ -1,0 +1,10 @@
+{
+  "email": "Email",
+  "error": "Error",
+  "formEmail": "Enter your Email",
+  "formPassword": "Enter a Password of at least 6 characters",
+  "helloMessage": "Hello, {name}!",
+  "loading": "Loading",
+  "login": "Login",
+  "password": "Password"
+}
