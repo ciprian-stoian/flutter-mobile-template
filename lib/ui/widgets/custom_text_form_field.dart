@@ -14,6 +14,7 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String) onFieldSubmitted;
   final String labelText;
   final IconData icon;
+  final Function(String) onChanged;
 
   CustomTextFormField({
     this.enabled,
@@ -28,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onFieldSubmitted,
     this.labelText,
     this.icon,
+    this.onChanged,
   });
 
   @override
@@ -43,6 +45,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       validator: validator,
       onFieldSubmitted: onFieldSubmitted,
+      onChanged: onChanged,
       decoration: InputDecoration(
         isDense: true,
         labelText: labelText,
