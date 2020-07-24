@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
+  final bool autofocus;
   final bool enabled;
   final int maxLines;
   final TextInputType keyboardType;
@@ -13,10 +14,12 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String) validator;
   final Function(String) onFieldSubmitted;
   final String labelText;
+  final String hintText;
   final IconData icon;
   final Function(String) onChanged;
 
   CustomTextFormField({
+    this.autofocus = false,
     this.enabled,
     this.maxLines = 1,
     this.keyboardType,
@@ -28,6 +31,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.onFieldSubmitted,
     this.labelText,
+    this.hintText,
     this.icon,
     this.onChanged,
   });
@@ -35,6 +39,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: autofocus,
       enabled: enabled,
       maxLines: maxLines,
       keyboardType: keyboardType,
@@ -49,7 +54,8 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         isDense: true,
         labelText: labelText,
-        prefixIcon: Icon(icon),
+        hintText: hintText,
+        prefixIcon: icon != null ? Icon(icon) : null,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           borderSide: BorderSide(color: Colors.grey),
