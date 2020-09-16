@@ -3,13 +3,9 @@ abstract class SharedPrefsEvent {
 }
 
 class SetSharedPref extends SharedPrefsEvent {
-  final String key;
-  final String value;
+  final Map<String, String> sharedPrefs;
 
-  SetSharedPref({
-    this.key,
-    this.value,
-  });
+  SetSharedPref(this.sharedPrefs);
 }
 
 class GetSharedPrefs extends SharedPrefsEvent {}

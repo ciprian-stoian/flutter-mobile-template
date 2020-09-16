@@ -45,7 +45,13 @@ class _MainPageState extends State<MainPage> {
                 builder: (context) => LoadingDialog(),
               );
             } else if (registerState is RegisterSuccess) {
-              BlocProvider.of<SharedPrefsBloc>(context).add(SetSharedPref(key: USERNAME_KEY, value: _emailController.text));
+              BlocProvider.of<SharedPrefsBloc>(context).add(
+                SetSharedPref(
+                  {
+                    USERNAME_KEY: _emailController.text,
+                  },
+                ),
+              );
               Navigator.of(context).pop();
             } else if (registerState is RegisterError) {
               Navigator.of(context).pop();
@@ -86,7 +92,7 @@ class _MainPageState extends State<MainPage> {
                                   key: "helloMessage",
                                   placeholders: {"name": sharedPrefsState.sharedPreferences.get(USERNAME_KEY)},
                                 ),
-                                style: Theme.of(context).textTheme.headline,
+                                style: Theme.of(context).textTheme.headline5,
                               ),
                               const SizedBox(height: 16),
                             ],
