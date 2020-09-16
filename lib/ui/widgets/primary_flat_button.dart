@@ -19,7 +19,10 @@ class PrimaryFlatButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       onPressed: onPressed,
-      child: child,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: child,
+      ),
     );
   }
 }

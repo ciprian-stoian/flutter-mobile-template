@@ -14,7 +14,7 @@ class SharedPrefsBloc extends Bloc<SharedPrefsEvent, SharedPrefsState> {
     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
     if (event is SetSharedPref) {
-      await sharedPreferences.setString(event.key, event.value);
+      event.sharedPrefs.forEach((key, value) => sharedPreferences.setString(key, value));
 
       yield SharedPrefsLoaded(sharedPreferences);
     }
