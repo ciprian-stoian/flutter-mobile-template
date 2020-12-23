@@ -14,7 +14,7 @@ class FormValidatorsHandler {
 
   String validateEmail(String value) {
     if (value.isEmpty) {
-      return AppLocalizations.of(context).get(key: "formEmail");
+      return AppLocalizations.of(context).get(key: "form_email");
     } else {
       return null;
     }
@@ -22,7 +22,7 @@ class FormValidatorsHandler {
 
   String validatePassword(String value) {
     if (value.isEmpty || value.length < 6) {
-      return AppLocalizations.of(context).get(key: "formPassword");
+      return AppLocalizations.of(context).get(key: "form_password");
     } else {
       return null;
     }

@@ -1,9 +1,9 @@
 {
   "email": "Email",
   "error": "Eroare",
-  "formEmail": "Introduceti adresa de Email",
-  "formPassword": "Introduceti o Parola de minim 6 caractere",
-  "helloMessage": "Salut, {name}!",
+  "form_email": "Introduceti adresa de Email",
+  "form_password": "Introduceti o Parola de minim 6 caractere",
+  "hello_message": "Salut, {name}!",
   "loading": "Se incarca",
   "login": "Login",
   "password": "Parola"

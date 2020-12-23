@@ -89,7 +89,7 @@ class _MainPageState extends State<MainPage> {
                             children: <Widget>[
                               Text(
                                 AppLocalizations.of(context).get(
-                                  key: "helloMessage",
+                                  key: "hello_message",
                                   placeholders: {"name": sharedPrefsState.sharedPreferences.get(USERNAME_KEY)},
                                 ),
                                 style: Theme.of(context).textTheme.headline5,
