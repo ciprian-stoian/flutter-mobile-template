@@ -8,12 +8,12 @@ class Themes {
 
     return themeData.copyWith(
         primaryColor: PRIMARY_COLOR,
+        accentColor: PRIMARY_COLOR,
         appBarTheme: AppBarTheme(
           color: themeData.scaffoldBackgroundColor,
           elevation: 0,
         ),
-        dialogTheme: DialogTheme()
-    );
+        dialogTheme: DialogTheme());
   }
 
   static ThemeData getLightTheme() {
@@ -21,10 +21,10 @@ class Themes {
 
     return themeData.copyWith(
         primaryColor: PRIMARY_COLOR,
+        accentColor: PRIMARY_COLOR,
         appBarTheme: AppBarTheme(
           elevation: 0,
         ),
-        dialogTheme: DialogTheme()
-    );
+        dialogTheme: DialogTheme());
   }
 }
